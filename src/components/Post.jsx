@@ -9,7 +9,8 @@ import { Avatar } from './Avatar';
 import styles from './Post.module.css';
 
 export function Post({author, content, publishedAt}) {
-    const [comments, setComments] = useState([1,2]);
+    const [comments, setComments] = useState(['Muito bom']);
+    const [newComment, setNewComment] = useState('');
 
     const publishedDateFormatted = format(publishedAt, "dd 'de' LLLL 'às' HH:mm'h'", {
         locale: ptBR,
@@ -22,8 +23,12 @@ export function Post({author, content, publishedAt}) {
 
     function handleAddCommnet() {
         event.preventDefault();
+        setComments([...comments, newComment]);
+        setNewComment('');
+    }
 
-        setComments([...comments, comments.length + 1]);
+    function handleNewComment() {
+        setNewComment(event.target.value);
     }
 
     return (
@@ -52,11 +57,14 @@ export function Post({author, content, publishedAt}) {
                 })}
            </div>
 
-           <form className={styles.commentForm} onSubmit={handleAddCommnet}>
+           <form onSubmit={handleAddCommnet} className={styles.commentForm}>
                 <strong>Deixe seu feedback</strong>
 
                 <textarea 
+                    name="comment"
                     placeholder='Deixe um comentário'
+                    value={newComment}
+                    onChange={handleNewComment}
                 />
 
                 <footer>
@@ -66,7 +74,7 @@ export function Post({author, content, publishedAt}) {
 
            <div className={styles.commentList}>
                 {comments.map(comment => {
-                    return <Comment />
+                    return <Comment content={comment}/>
                 })}
            </div>
         </article>
