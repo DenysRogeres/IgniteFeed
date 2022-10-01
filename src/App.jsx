@@ -11,7 +11,7 @@ const posts = [
     author: {
       avatarUrl: 'https://github.com/DenysRogeres.png',
       name: 'Denys Rógeres',
-      role: 'IT Intern'
+      role: 'IT Intern',
     },
     content: [
       { type: 'paragraph', content: 'Eae Galera' },
@@ -25,14 +25,14 @@ const posts = [
     author: {
       avatarUrl: 'https://github.com/DenysRogeres.png',
       name: 'Denys Santos',
-      role: 'IT Intern'
+      role: 'IT Intern',
     },
     content: [
       { type: 'paragraph', content: 'Eae Galera' },
       { type: 'paragraph', content: 'Turo bom, vamos lá' },
       { type: 'link', content: 'teste.com' }
     ],
-    publishedAt: new Date('2022-05-03 20:00:00')
+    publishedAt: new Date('2022-05-10 20:00:00')
   }
 ]
 
@@ -45,12 +45,15 @@ function App() {
         <Sidebar />
         <main>
           {posts.map(post => {
-            return <Post />
+            return (
+              <Post    
+                key={post.id}        
+                author={post.author}
+                content={post.content}
+                publishedAt={post.publishedAt}
+              />
+            )
           })}
-          <Post 
-            autor="Denys Rógeres"
-            conteudo="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit veniam neque recusandae facere dignissimos ut perspiciatis eligendi ex facilis, dolorum nulla voluptate expedita. Vitae unde consequuntur reprehenderit iusto expedita atque!"
-          />
         </main>
       </div>
     </>
