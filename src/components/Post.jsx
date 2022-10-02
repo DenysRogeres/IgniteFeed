@@ -31,6 +31,16 @@ export function Post({author, content, publishedAt}) {
         setNewComment(event.target.value);
     }
 
+    function deleteComment(comment) {
+        const commentsWithoutDeleteComment = comments.filter(item => {
+            return item != comment;
+        });
+
+        setComments(commentsWithoutDeleteComment);
+    }
+
+    const isNewCommentEmpty = newComment.length == 0;
+
     return (
         <article className={styles.post}>
            <header>
@@ -68,13 +78,19 @@ export function Post({author, content, publishedAt}) {
                 />
 
                 <footer>
-                    <button type="submit">Publicar</button>
+                    <button type="submit" disabled={isNewCommentEmpty}>Publicar</button>
                 </footer>
            </form>
 
            <div className={styles.commentList}>
                 {comments.map(comment => {
-                    return <Comment key={comment} content={comment}/>
+                    return (
+                        <Comment 
+                            key={comment} 
+                            content={comment}
+                            onDeleteComment={deleteComment}
+                        />
+                    )
                 })}
            </div>
         </article>
